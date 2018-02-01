@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "Pan",
+	"version": "0.1",
+
+	"description": "Presents neutral and dissenting information to news articles.",
+
+	"icons": {
+		"48": "res/pan_logo_green_48",
+		"96": "res/pan_logo_green_96"
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["*://*/"],
+			"js": ["scripts/process_page.js"]
+		}
+	]
+}
