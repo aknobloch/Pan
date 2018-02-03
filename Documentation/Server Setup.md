@@ -32,3 +32,15 @@ LXC is a container framework for Linux machines. It can be thought of as a hybir
       * The first `--` string denotes that the command parameters for lxc should stop there, and the rest of the line will be passed as the command to be executed inside the container. The command is `sudo --login --user ubuntu`, which provides a login shell for the preconfigured (sudoer) account "ubuntu" inside the container.
       * Once inside the container shell, you can think of it as its own virtual machine. Any commands run using root permissions will be contained to this container, and all packages and apps installed will be specific to this machine.
 5. Test that we have access to the network outside of this machine by running `ping google.com`. You should see succesful pings. If you do not have network access, you can try referring to the notes under step 3.
+
+
+**By default, this container is not accessible to the outside world. We will need to configure the host machine to forward traffic on specific ports to this container, but before doing that, we will need to set up the Django server.**
+
+# Setting up a Database
+Python includes SQLite3. You're done. Horray!
+Here are the justifications behind using SQLite rather than a full-blown RDBMS:
+* We don't expect high volume.
+* We don't require direct DB access, it will be managed through the Django application.
+* We aren't worried about concurrency issues. Concurrent reading is possible in SQLite3, and since results can be returned and then the results written, we don't have to worry about performance issues from the client. 
+
+# Setting up Django
