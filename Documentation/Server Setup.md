@@ -21,7 +21,7 @@ LXC is a container framework for Linux machines. It can be thought of as a hybir
     * (GUI Screen) Confirm subnet not in use. **Unless you know why you need to change it, leave defaults.**
     * (GUI Screen) Do you want to NAT traffic? **Yes**
     * Create IPv6 subnet? **No**
-3. For more information on any of the above options, visit [the DigitalOcean walkthrough](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-lxd-on-ubuntu-16-04#step-2-%E2%80%94-configuring-networking) or Google. You should get a message indicating the lxd.service was stopped, and that LXD was suiccessfully configured. 
+3. For more information on any of the above options, visit [the DigitalOcean walkthrough](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-lxd-on-ubuntu-16-04#step-2-%E2%80%94-configuring-networking) or Google. You should get a message indicating the lxd.service was stopped, and that LXD was successfully configured. 
 
 ### Create Pan Server container
 1. Run `lxc list` to generate the client certificate.
@@ -34,7 +34,7 @@ LXC is a container framework for Linux machines. It can be thought of as a hybir
 5. Test that we have access to the network outside of this machine by running `ping google.com`. You should see succesful pings. If you do not have network access, you can try referring to the notes under step 3.
 
 
-**By default, this container is not accessible to the outside world. We will need to configure the host machine to forward traffic on specific ports to this container, but before doing that, we will need to set up the Django server.**
+**By default, this container is not accessible to the outside world. We will need to configure the host machine to forward traffic on specific ports to this container, but before doing that, we will need to set up the server.**
 
 # Setting up a Database
 Python includes SQLite3. You're done. Horray!
@@ -45,4 +45,13 @@ The decision to use SQLite3 was chosen via the information [here](https://www.sq
 * We aren't worried about concurrency issues. Concurrent reading is possible in SQLite3, and since results can be returned and then the results written, we don't have to worry about performance issues from the client. 
 * We don't expect high volumes of data (>140 TB files). Logs and web page results will be considered obsolete and cleared after a yet to determined timestamp. 
 
-# Setting up Django
+# Setting up Django REST Framework
+In the preceding setup, it is implied that you are operating in the pan-server container shell. To enter this shell, execute `lxc exec pan-server -- sudo --login --user ubuntu` on the host machine.
+
+This section was aided by the tutorial found [here](http://www.django-rest-framework.org/tutorial/quickstart/), with specifics for the Pan installation. 
+
+Django requires Python 3 to be installed. The Ubuntu 16.04 installation should include this, but you can be sure by running `python3 --version`. For me, I also like to run python scripts without typing `python3` as the command, so I add an alias via `echo "alias python=python3" >> ~/.bashrc`. **All commands following are assuming this has been done.**
+ 
+1. Find a directory for the server source to reside in, and clone the git repository.
+2. Navigate into the `PanServer` directory, then run `python3 manage.py runserver`
+3. You should now be able to access the server REST API via `curl` directives from inside the container, using the local loopback. To access the server from outside, port forwarding on the host machine still needs to be configured. 
