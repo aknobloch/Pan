@@ -38,9 +38,11 @@ LXC is a container framework for Linux machines. It can be thought of as a hybir
 
 # Setting up a Database
 Python includes SQLite3. You're done. Horray!
+
 Here are the justifications behind using SQLite rather than a full-blown RDBMS:
 * We don't expect high volume.
 * We don't require direct DB access, it will be managed through the Django application.
 * We aren't worried about concurrency issues. Concurrent reading is possible in SQLite3, and since results can be returned and then the results written, we don't have to worry about performance issues from the client. 
+* We don't expect high volumes of data (>140 TB). Logs and web page results will be considered obsolete and cleared after a yet to determined timestamp. 
 
 # Setting up Django
