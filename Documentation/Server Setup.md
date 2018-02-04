@@ -65,3 +65,10 @@ A server container for Pan is now running, with the PanServer project running on
 2. If the PanServer is running on a separate machine from your development machine, we need to configure the host machine to forward incoming connection to port 8000 to the container. For this, we can use iptables on the host machine via `sudo iptables -t nat -I PREROUTING -i eth0 -p TCP -d <public ip> --dport 8000 -j DNAT --to-destination <container ip>:8000 -m comment --comment "Forward to PanServer"'`. Make sure to replace `<public ip>` and `<container ip>` with the appropriate values for the host machine. 
 3. TODO can't get port forwarding to work
 
+
+
+
+ 
+
+
+
