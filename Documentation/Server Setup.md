@@ -62,9 +62,7 @@ Before continuing with this section, you should understand the security implicat
 A server container for Pan is now running, with the PanServer project running on it. You can connect to the REST API via the local loopback in the container, but we still need to give access from the internet. The Pan server uses port 8000 to listen for API POST/GET requests. 
 
 1. First, we need to run PanServer to listen for all incoming traffic. Inside the container shell, start the server via `python3 manage.py runserver 0.0.0.0:8000`. To make sure that works, you should now be able to `curl` the server from the host machine, as well as the container shell. **If you are developing on the same machine you are running the server on, you may stop here.**
-2. If the PanServer is running on a separate machine from your development machine, we need to configure the host machine to forward incoming connection to port 8000 to the container. For this, we can use iptables on the host machine via `sudo iptables -t nat -I PREROUTING -i eth0 -p TCP -d <public ip> --dport 8000 -j DNAT --to-destination <container ip>:8000 -m comment --comment "Forward to PanServer"'`. Make sure to replace `<public ip>` and `<container ip>` with the appropriate values for the host machine. 
-3. TODO can't get port forwarding to work
-
+2. If the PanServer is running on a separate machine from your development machine, we need to configure the host machine to forward incoming connection to port 8000 to the container. For this, we can use iptables on the host machine via `sudo iptables -t nat -I PREROUTING -i <interface> -p TCP -d <public ip> --dport 8000 -j DNAT --to-destination <container ip>:8000 -m comment --comment "Forward to PanServer"'`. Make sure to replace `<public ip>` and `<container ip>` with the appropriate values for the host machine. Additionally, ensure that `<interface>` is replaced with the outward-facing interface of your host machine. For many machines, this is `eth0`, but you can find this by running `ifconfig`.
 
 
 
