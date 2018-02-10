@@ -1,0 +1,14 @@
+{
+  "name": "pan_extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/process_page.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "unfluff": "^3.0.0"
+  }
+}
