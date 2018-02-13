@@ -1,0 +1,14 @@
+{
+  "name": "pan-extension",
+  "version": "1.0.0",
+  "description": "Presents neutral and dissenting information across the web.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "aknobloch",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^3.11.0"
+  }
+}
