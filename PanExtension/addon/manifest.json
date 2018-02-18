@@ -5,6 +5,10 @@
 
 	"description": "Presents neutral and dissenting information to news articles.",
 
+	"permissions" : [
+		"activeTab"
+	],
+
 	"icons": {
 		"48": "res/pan_logo_green_48",
 		"96": "res/pan_logo_green_96"
@@ -15,5 +19,18 @@
 			"matches": ["<all_urls>"],
 			"js": ["out/app.js"]
 		}
-	]
+	],
+
+	"background": {
+		"scripts": ["out/background_service.js"]
+	},
+
+	"browser_action" : {
+		"browser_style": true,
+		"default_popup": "out/popup.html",
+		"default_icon": {
+			"16": "res/pan_logo_grey_16.png",
+			"32": "res/pan_logo_grey_32.png"
+		}
+	}
 }

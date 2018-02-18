@@ -1,6 +1,21 @@
-console.log("Hello, Pan!")
-var html = document.documentElement.innerHTML;
-console.log("got html: " + html.substring(0, 100))
-var doc = new DOMParser().parseFromString(html, 'text/html')
-console.log("parsed")
-console.log(doc.body.textContent || "")
+var $ = require("jquery");
+
+$( document ).ready(function() {
+    console.log("hello pan!")
+	try
+	{
+		extractor = require('unfluff')
+	}
+	catch(err)
+	{
+		console.log(err.message)
+		console.log("err")
+	}
+	console.log("require done")
+	var html = document.documentElement.innerHTML
+	console.log("html extracted")
+	console.log(html)
+	data = extractor(html)
+	console.log("data extracted")
+	console.log(data.text)
+});

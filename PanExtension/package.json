@@ -5,14 +5,14 @@
   "author": "aknobloch",
   "license": "ISC",
   "devDependencies": {
+    "copy-webpack-plugin": "^4.4.1",
     "jquery": "^3.3.1",
     "webpack": "^3.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "//" : "for some reason, trying to add the unfluff module to depenedencies causes a vague error when requiring.",
-    "//" : "so, we will hack around this by adding a postscript to install the module",
+    "//": "so, we will hack around this by adding a postscript to install the module",
     "postinstall": "npm install https://github.com/aknobloch/node-unfluff.git"
   }
 }
