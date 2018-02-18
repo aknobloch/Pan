@@ -2,13 +2,17 @@
   "name": "pan-extension",
   "version": "1.0.0",
   "description": "Presents neutral and dissenting information across the web.",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
-  },
   "author": "aknobloch",
   "license": "ISC",
   "devDependencies": {
+    "jquery": "^3.3.1",
     "webpack": "^3.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "//" : "for some reason, trying to add the unfluff module to depenedencies causes a vague error when requiring.",
+    "//" : "so, we will hack around this by adding a postscript to install the module",
+    "postinstall": "npm install https://github.com/aknobloch/node-unfluff.git"
   }
 }

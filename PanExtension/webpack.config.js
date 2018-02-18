@@ -11,5 +11,11 @@ module.exports = {
     resolve: {
 		extensions: [ '.js', '.json', '*' ],
 		modules: [ path.join(__dirname, 'node_modules') ],
+	},
+
+	// The following is due to a WebPack error, documented here:
+	// https://github.com/webpack-contrib/css-loader/issues/447
+	node: {
+	  fs: 'empty'
 	}
-}; 
+};
