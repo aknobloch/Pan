@@ -7,5 +7,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "addon"),
         filename: "out/app.js"
-    }
-};
+    },
+    resolve: {
+		extensions: [ '.js', '.json', '*' ],
+		modules: [ path.join(__dirname, 'node_modules') ],
+	}
+}; 
