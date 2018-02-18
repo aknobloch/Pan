@@ -17,3 +17,4 @@ tests/.coverage
 build/
 tests/report/
 npm-debug.log
+pan_logo_orig.xcf
