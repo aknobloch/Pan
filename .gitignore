@@ -21,3 +21,4 @@ npm-debug.log
 pan_logo_orig.xcf
 out/
 py3env/
+db.sqlite3
