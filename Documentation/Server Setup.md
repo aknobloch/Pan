@@ -1,6 +1,7 @@
 # Prerequisites
 * Ubuntu 16.04 machine - [Install Guide](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-server#0)
 * Python3 and Django - You may find help [here](https://docs.djangoproject.com/en/2.0/topics/install/) and [here](https://stackoverflow.com/questions/10763440/how-to-install-python3-version-of-package-via-pip-on-ubuntu)
+* Django REST framework - [Install Guide](http://www.django-rest-framework.org/)
 * LXD, Bridge-Utils and ZFSUtils installed. - `sudo apt-get install lxd bridge-utils zfsutils-linux -y`
 
 # LXD Container Setup
