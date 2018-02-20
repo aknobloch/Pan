@@ -19,3 +19,4 @@ tests/report/
 npm-debug.log
 pan_logo_orig.xcf
 out/
+py3env/
