@@ -5,6 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.exceptions import ValidationError
 from PanRestAPI.models import WebPage, Entity, PageEntity
 from PanRestAPI.serializers import WebPageSerializer, EntitySerializer, PageEntitySerializer
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,9 @@ def wiki_links(request, format=None) :
 	serializer.is_valid()
 
 	if(len(serializer.errors) > 0) :
+		logger.debug("Invalid Request! Payload: " + str(request.data) + " Errors: " + str(serializer.errors))
 		raise ValidationError
+
 
 	serializer.save()
 
