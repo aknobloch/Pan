@@ -18,7 +18,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from PanRestAPI import views
 
 urlpatterns = [
-	url(r'^webpage/$', views.page_list)
+	url(r'^wikilinks/$', views.wiki_links)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
