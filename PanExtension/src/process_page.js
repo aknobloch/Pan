@@ -2,15 +2,16 @@ var $ = require("jquery");
 var extractor = require('unfluff');
 var server_address = "http://127.0.0.1:8000/";
 var httpRequest = new XMLHttpRequest();
+var request_timeout = 1000 * 10;
 
 $( document ).ready(function() 
 {
 	validate_browser();
 	validate_user_page();
 	
+	change_icon("yellow");
 	var article_text = extract_text();
 	request_wikilinks(article_text);
-	
 });
 
 function validate_user_page()
@@ -27,14 +28,43 @@ function extract_text()
 
 function request_wikilinks(article_text)
 {
-	httpRequest.open('PUT', server_address + "wikilinks/", false);
+	httpRequest.open('PUT', server_address + "wikilinks/", true);
 	httpRequest.setRequestHeader("Content-Type", "application/json");
+	httpRequest.timeout = request_timeout;
+	httpRequest.onreadystatechange = handle_server_response;
+	httpRequest.ontimeout = handle_server_timeout;
+	
 	httpRequest.send(JSON.stringify({URL : window.location.href, Content : article_text}));
+}
 
-	if(httpRequest.status == 200)
+function handle_server_response()
+{
+	if(httpRequest.readyState != XMLHttpRequest.DONE)
 	{
-		console.log("Server replied: " + httpRequest.responseText);
+		return;
 	}
+
+	if(httpRequest.status != 200)
+	{
+		// TODO red icons with message to user
+		console.log("Pan server response: " + httpRequest.status);
+		change_icon("grey");
+		return;
+	}
+	
+	console.log("Server replied: " + httpRequest.responseText);
+	change_icon("green");
+}
+
+function handle_server_timeout()
+{
+	// TODO: red icons with message to user
+	change_icon("grey");
+}
+
+function change_icon(color)
+{
+	browser.runtime.sendMessage({"changeIcon" : color}); // received by background service
 }
 
 function validate_browser()
