@@ -1,21 +1,20 @@
-var $ = require("jquery");
+var $ = require("jquery")
+var extractor = require('unfluff')
+
+function extract_text()
+{
+	var html = document.documentElement.innerHTML
+	data = extractor(html)
+	return data.text
+}
+
+function handle_server_response()
+{
+	console.log("server replied")
+}
 
 $( document ).ready(function() {
-    console.log("hello pan!")
-	try
-	{
-		extractor = require('unfluff')
-	}
-	catch(err)
-	{
-		console.log(err.message)
-		console.log("err")
-	}
-	console.log("require done")
-	var html = document.documentElement.innerHTML
-	console.log("html extracted")
-	console.log(html)
-	data = extractor(html)
-	console.log("data extracted")
-	console.log(data.text)
-});
+
+	// TODO: check to see if current page is allowed by user
+	console.log(extract_text())
+})
