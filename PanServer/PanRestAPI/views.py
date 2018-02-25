@@ -24,4 +24,4 @@ def wiki_links(request, format=None) :
 
 	pages = WebPage.objects.all()
 	serializer = WebPageSerializer(pages, many=True)
-	return Response(serializer.data)
+	return Response("{ \"EntityName\" : \"Dummy Entity\", \"WikiLink\" : \"Dummy Link\" }")

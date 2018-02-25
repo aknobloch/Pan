@@ -6,7 +6,8 @@
 	"description": "Presents neutral and dissenting information to news articles.",
 
 	"permissions" : [
-		"activeTab"
+		"activeTab",
+		"<all_urls>"
 	],
 
 	"icons": {
