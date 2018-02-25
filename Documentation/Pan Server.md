@@ -6,6 +6,8 @@ TODO: link to document cloning and installing the LXD container.
 
 TODO: quick setup for local testing, link to https://insomnia.rest/download/#ubuntu for testing
 
+TODO: intro to logging and debug.log
+
 # Building and Development
 
 ## Development
@@ -15,7 +17,7 @@ TODO: Small development tutorial
 
 ## Managing the Database
 ### Graphically Managing the DB
-Pan Server uses SQLite3, which is largely managed via the API and Django. For manual database management, I like to use [SQLiteStudio](https://sqlitestudio.pl/index.rvt?act=about). The database file is located at `Pan/PanServer/dv.sqlite3`. 
+Pan Server uses SQLite3, which is largely managed via the API and Django. For manual database management, I like to use [SQLiteStudio](https://sqlitestudio.pl/index.rvt?act=about). The database file is located at `Pan/PanServer/db.sqlite3`. 
 
 ### Models
 Django handles a large portion of database serialization natively. More information can be found in the [official documentation](https://docs.djangoproject.com/en/2.0/topics/db/models/), but the data models for the database can be found in the `models.py` file located in the PanRestAPI app folder. The database modeling and serialization was assisted by the [Django REST framework documentation](http://www.django-rest-framework.org/tutorial/1-serialization/).
