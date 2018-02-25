@@ -2,7 +2,8 @@
 PanServer is a web service for retrieving information regarding a webpage. It is based on Django and the [Django REST framework](http://www.django-rest-framework.org/). If you are looking for information on how to setup the server from scratch, please refer to the [Server Setup](https://github.com/aknobloch/Pan/blob/master/Documentation/Server%20Setup.md) documentation. However, please note that setting up the server from scratch should not be necessary, thanks to Linux Containers.
 
 # Quick Start
-TODO: document cloning and installing the LXD container.
+TODO: link to document cloning and installing the LXD container.
+TODO: quick setup for local testing, link to https://insomnia.rest/download/#ubuntu for testing
 
 # Building and Development
 
