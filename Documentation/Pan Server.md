@@ -6,6 +6,8 @@ TODO: link to document cloning and installing the LXD container.
 
 TODO: quick setup for local testing, link to https://insomnia.rest/download/#ubuntu for testing
 
+TODO: intro to logging and debug.log
+
 # Building and Development
 
 ## Development
