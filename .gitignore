@@ -25,3 +25,4 @@ db.sqlite3
 settings.cpython-35.pyc
 __init__.cpython-35.pyc
 debug.log
+server_api_key
