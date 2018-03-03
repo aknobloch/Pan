@@ -35,10 +35,17 @@ The following section provides a brief overview of the basic structure of the Pa
 
    These are the classes responsible for serialization and deserialization of the data structures defined in `models.py`. Serializers take JSON data, validate it and save it to the database. They also take data from the database and convert them into Python data models. More information on serialization can be found via the [Django REST framework documentation](http://www.django-rest-framework.org/tutorial/1-serialization/).
    
+* `PanServer/PanRestAPI/request_handlers.py`
+
+   This file contains class definitions for request handlers. Request handlers are simply convenience classes to aid in the processing of requests. All API endpoints defined in the `views.py` file should be routed through one or ore of these handlers.
+
 ## Debugging and Testing
 When the variable `DEBUG` in the `settings.py` file is set to `True`, then debug logs are written to the `debug.log` file in the top level `PanServer` directory. When introducing new code, it is important to **always use the Django logger** and not print statements. More information on the logger can be found [in the official docs](https://docs.djangoproject.com/en/2.0/topics/logging/). 
 
 For quick testing of API calls, I highly recommend the program [Insomnia](https://insomnia.rest/download/).
+
+## Google Cloud Service
+Pan relies on GCS for some of its core functionality. In order to run the server, you will need this installed on your machine, as well as the authentication credentials for the server. To install the GCS dependency, simply run `pip install --upgrade google-cloud-language`. Remember to use `pip3`, or the equivalent command to ensure that the Python environment that the server is running on is the same that the GCS dependency is being installed to. Additionally, you will need to create a file to store the server API authentication token, as well as set the `GOOGLE_APPLICATION_CREDENTIALS` variable to that file. For instance, if you store the authentication token in a file located at `/home/example/gcs_auth` then you would run the command `export GOOGLE_APPLICATION_CREDENTIALS="/home/example/gcs_auth"` to set this variable. The authentication token can be found by navigating to the PanServer project in the Google Cloud console, then to APIs & Services > Credentials. 
 
 ## Starting the Server
 Running the server is fairly straightforward to do. Firstly, make sure that the `DEBUG` variable is set to `True` in the `settings.py` file. Next, you'll need to start the server using Python 3. Navigate to the `PanServer` directory and execute `python manage.py runserver`. You may need to explicitly designate `python3` in your command. This will start the server on your local machine, and it will now be accessible via `127.0.0.1:8000`. 
