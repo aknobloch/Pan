@@ -1,5 +1,5 @@
 var $ = require("jquery");
-var extractor = require('unfluff');
+var extractor = require("unfluff");
 var server_address = "http://127.0.0.1:8000/";
 var http_request = new XMLHttpRequest();
 var request_timeout = 1000 * 10;
