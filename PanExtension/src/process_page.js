@@ -8,37 +8,37 @@ var user_page_key = "userpages";
 $( document ).ready(function() 
 {
 	validate_browser();
-	get_user_pages();
+	get_user_pages()
+		.then(validate_page)
+		.then(start_page_processing)
+		.catch(on_error);
 });
 
 function get_user_pages()
 {
-	var on_storage_failure = function() 
-	{
-		// TODO red icon, display to user
-		console.log("storage error occured");
-	}
-
-	var on_storage_success = function(result) 
-	{
-		if(current_page_valid(result))
-		{
-			start_page_processing();
-		}
-	}
-
-	var storage_request = chrome.storage.local.get(user_page_key);
-	storage_request.then(on_storage_success, on_storage_failure);	
+	return chrome.storage.local.get(user_page_key);
 }
 
-function current_page_valid(user_pages)
+function validate_page(user_pages)
 {
-	console.log("current page valid being called");
-	console.log(user_pages);
-	return false;
+	var user_approved_pages = user_pages.userpages;
+	var current_domain = get_hostname(window.location.href);
+
+	return new Promise((resolve, reject) => 
+	{
+		if(is_contained(current_domain, user_approved_pages))
+		{
+			resolve(true);
+		}
+		else
+		{
+			reject("Not a user white-listed domain.");
+		}
+
+	});
 }
 
-function start_page_processing()
+function start_page_processing(validated)
 {
 	change_icon("yellow");
 	var article_text = extract_text();
@@ -82,6 +82,48 @@ function handle_server_response()
 	change_icon("green");
 }
 
+// TODO abstract this function out
+function is_contained(element, array)
+{
+	if(array == null)
+	{
+		return false;
+	}
+
+	for( var i = 0; i < array.length; i++)
+	{
+		if(array[i] === element)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+// TODO abstract this function out to ensure it is the same as what is checked in process_page
+function get_hostname(full_page_url)
+{
+	var hostname;
+
+    // find & remove protocol (http, ftp, etc.) and get hostname
+    if (full_page_url.indexOf("://") > -1) 
+    {
+        hostname = full_page_url.split('/')[2];
+    }
+    else 
+    {
+        hostname = full_page_url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+}
+
 function handle_server_timeout()
 {
 	// TODO: red icons with message to user
@@ -101,4 +143,9 @@ function validate_browser()
 		console.log("Browser does not support XMLHttpRequest");
 		throw "Unsupported browser";
 	}
+}
+
+function on_error(err)
+{
+	console.log(err); // TODO user feedback
 }

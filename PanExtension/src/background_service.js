@@ -111,6 +111,5 @@ function get_hostname(full_page_url)
 
 function on_error(err)
 {
-	console.log("There was an error while retrieving data."); // TODO user feedback
-	console.log(err);
+	console.log(err); // TODO user feedback
 }
