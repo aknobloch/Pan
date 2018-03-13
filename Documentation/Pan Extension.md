@@ -4,7 +4,7 @@ PanExtension is a browser built using the WebExtensions framework. This framewor
 
 # Quick Start
 
-First, clone the git repository on your local machine. The entirety of the PanExtension project lives under the PanExtension folder. To load the extension into your web browser, see the [Debugging](#Debugging) section below. PanExtension is ran on all web pages. The first entry point to the scripts is the src/process_page.js file.
+First, clone the git repository on your local machine. The entirety of the PanExtension project lives under the PanExtension folder. To load the extension into your web browser, see the [Debugging](#Debugging) section below. The first entry point to PanExtension is the `process_page.js` file.  This script is ran on every page. It first checks that the current page is approved (white-listed) by the current user, and then processes that page's content if so. 
 
 # Loading and Debugging
 
