@@ -3,7 +3,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from PanRestAPI.request_handlers import WikiLinkRequestHandler
 import logging
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -14,4 +13,4 @@ def wiki_links(request, format=None) :
 	wiki_link_handler.validate_and_save()
 	links = wiki_link_handler.request_wiki_links()
 	
-	return Response(json.dumps(links))
+	return Response(links)

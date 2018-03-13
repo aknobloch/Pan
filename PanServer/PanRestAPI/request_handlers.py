@@ -65,7 +65,7 @@ class WikiLinkRequestHandler :
 
 		wiki_links = {}
 
-		# filter out all the entities that do no have wikipedia links provided
+		# filter out all the entities that do not have wikipedia links provided
 		for entity in entities :
 
 			entity_name = entity.name
@@ -77,6 +77,8 @@ class WikiLinkRequestHandler :
 
 		self.m_wiki_links = wiki_links
 		
+		# we can save these to the database on a separate thread, so that 
+		# the client does not have to wait for it to finish
 		save_link_process = Process(target=self.save_wiki_links_to_database)
 		save_link_process.start()
 
