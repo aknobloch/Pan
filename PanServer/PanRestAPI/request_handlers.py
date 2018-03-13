@@ -82,7 +82,7 @@ class WikiLinkRequestHandler :
 		save_link_process = Process(target=self.save_wiki_links_to_database)
 		save_link_process.start()
 
-		return wiki_links
+		return self.m_wiki_links
 
 	def save_wiki_links_to_database(self) :
 
