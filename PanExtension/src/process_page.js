@@ -11,6 +11,7 @@ $( document ).ready(function()
 	get_user_pages()
 		.then(validate_page)
 		.then(start_page_processing)
+		.then(request_wikilinks)
 		.catch(on_error);
 });
 
@@ -41,8 +42,24 @@ function validate_page(user_pages)
 function start_page_processing(validated)
 {
 	change_icon("yellow");
-	var article_text = extract_text();
-	request_wikilinks(article_text);
+
+	return new Promise((resolve, reject) =>
+	{
+		var article_text = extract_text();
+
+		if(article_text && article_text.length > 250)
+		{
+			resolve(article_text);
+		}
+		else if(article_text)
+		{
+			reject("Article extracted less than sufficient threshold.");
+		}
+		else
+		{
+			reject("Article text could not be extracted.");
+		}
+	});
 }
 
 function extract_text()
@@ -60,6 +77,7 @@ function request_wikilinks(article_text)
 	http_request.onreadystatechange = handle_server_response;
 	http_request.ontimeout = handle_server_timeout;
 	
+	// server response handled in the handle_server_response() method
 	http_request.send(JSON.stringify({URL : window.location.href, Content : article_text}));
 }
 
@@ -78,8 +96,35 @@ function handle_server_response()
 		return;
 	}
 	
-	console.log("Server replied: " + http_request.responseText);
+	wiki_links = JSON.parse(http_request.responseText)
+
+	for(name in wiki_links)
+	{
+		var link = wiki_links[name];
+		replace_with_link(name, link);
+	}
+
 	change_icon("green");
+}
+
+function replace_with_link(name, link)
+{
+	var link_wrapper = "<a href=\"" + link + "\">" + name + "</a>";
+	replaceText('*', name, link_wrapper, 'g');
+}
+
+function replaceText(selector, text, newText, flags) 
+{
+	var matcher = new RegExp(text, flags);
+	$(selector).each(function () 
+	{
+		var $this = $(this);
+		var replaced_text = "";
+		if (!$this.children().length)
+		{
+		   $this.text($this.text().replace(matcher, newText));
+		}
+	});
 }
 
 // TODO abstract this function out
