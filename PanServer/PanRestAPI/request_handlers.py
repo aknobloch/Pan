@@ -4,11 +4,15 @@ from PanRestAPI.serializers import WebPageSerializer, EntitySerializer, PageEnti
 from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
+from multiprocessing import Process
 import logging
+
 
 logger = logging.getLogger(__name__)
 
 # TODO make this an interface for consistency
+# TODO check if link exists in database first
+# TODO docs and comments
 class WikiLinkRequestHandler :
 
 	def __init__(self, request) :
@@ -31,7 +35,7 @@ class WikiLinkRequestHandler :
 
 		page_content = page_content.strip('\n')
 		page_content = page_content.strip('\t')
-		# TODO: strip trailing whitespace, remove unecessary words
+		# TODO: remove unecessary words
 
 		self.m_request.data['Content'] = page_content
 
@@ -61,6 +65,7 @@ class WikiLinkRequestHandler :
 
 		wiki_links = {}
 
+		# filter out all the entities that do no have wikipedia links provided
 		for entity in entities :
 
 			entity_name = entity.name
@@ -72,5 +77,22 @@ class WikiLinkRequestHandler :
 
 		self.m_wiki_links = wiki_links
 		
+		save_link_process = Process(target=self.save_wiki_links_to_database)
+		save_link_process.start()
+
 		return wiki_links
+
+	def save_wiki_links_to_database(self) :
+
+		if self.m_wiki_links == None or self.m_webpage == None :
+			return
+
+		for name in self.m_wiki_links :
+			
+			entity = Entity.objects.create(EntityName=name, WikiLink=self.m_wiki_links[name])
+			entity.save()
+
+			page_entity = PageEntity.objects.create(WebPageID=self.m_webpage, EntityID=entity)
+			page_entity.save()
+
 
