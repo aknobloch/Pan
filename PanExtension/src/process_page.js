@@ -109,7 +109,7 @@ function handle_server_response()
 
 function replace_with_link(name, link)
 {
-	var link_wrapper = "<a href=\"" + link + "\">" + name + "</a>";
+	var link_wrapper = "<a href=\"" + link + "\"  style=\"color:green\"  target=\"_blank\">" + name + "</a>";
 	replaceText('*', name, link_wrapper, 'g');
 }
 
@@ -122,7 +122,7 @@ function replaceText(selector, text, newText, flags)
 		var replaced_text = "";
 		if (!$this.children().length)
 		{
-		   $this.text($this.text().replace(matcher, newText));
+		   $this.html($this.text().replace(matcher, newText));
 		}
 	});
 }
