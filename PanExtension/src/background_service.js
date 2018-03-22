@@ -1,10 +1,10 @@
 var user_page_key = "userpages";
 
-browser.runtime.onMessage.addListener((sentMessage) =>
+browser.runtime.onMessage.addListener((sentMessage, sender) =>
 {
 	if(sentMessage.changeIcon)
 	{
-		set_icon(sentMessage.changeIcon);
+		set_icon(sentMessage.changeIcon, sender.tab.id);
 	}
 	else if(sentMessage.menuItemPressed = "addDomain")
 	{
@@ -13,14 +13,15 @@ browser.runtime.onMessage.addListener((sentMessage) =>
 });
 
 
-function set_icon(color)
+function set_icon(color, tab_id)
 {
 	icon = 
 	{
 		path : {
 			16: "res/pan_logo_" + color + "_16.png",
 			32: "res/pan_logo_" + color + "_32.png"
-		}
+		},
+		tabId : tab_id
 	}
 
 	browser.browserAction.setIcon(icon);

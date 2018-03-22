@@ -41,10 +41,10 @@ function validate_page(user_pages)
 
 function start_page_processing(validated)
 {
-	change_icon("yellow");
-
 	return new Promise((resolve, reject) =>
 	{
+		change_icon("yellow");
+		
 		var article_text = extract_text();
 
 		if(article_text && article_text.length > 250)
