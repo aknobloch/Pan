@@ -119,13 +119,40 @@ function replaceText(selector, text, newText, flags)
 	var matcher = new RegExp(text, flags);
 	$(selector).each(function () 
 	{
-		var $this = $(this);
+		var current_element = $(this);
 		var replaced_text = "";
-		if (!$this.children().length)
+
+		// ignore parent nodes
+		if(current_element.children().length > 0)
 		{
-		   $this.html($this.text().replace(matcher, newText));
+			return;
 		}
+
+		// ignore elements with minimal text - these are likely not
+		// content. this approach is used via the unfluff lib as well
+		if(current_element.text().length < 50)
+		{
+			return;
+		}
+
+		if(is_invalid_tag(current_element))
+		{
+			return;
+		}
+
+		current_element.html(current_element.text().replace(matcher, newText));
 	});
+}
+
+function is_invalid_tag(element)
+{
+	var tag_name = element.prop("tagName").toLowerCase();
+
+	return  tag_name === "h1" || 
+			tag_name === "h2" || 
+			tag_name === "h3" || 
+			tag_name === "head" ||
+			tag_name === "title";
 }
 
 // TODO abstract this function out
