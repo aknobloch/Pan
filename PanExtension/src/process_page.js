@@ -97,30 +97,17 @@ function handle_server_response()
 		return;
 	}
 	
-	wiki_links = JSON.parse(http_request.responseText)
-
-	for(name in wiki_links)
-	{
-		var link = wiki_links[name];
-		replace_with_link(name, link);
-	}
+	wiki_links = JSON.parse(http_request.responseText);
+	insert_links(wiki_links);
 
 	change_icon("green");
 }
 
-function replace_with_link(name, link)
+function insert_links(wiki_links)
 {
-	var link_wrapper = "<a href=\"" + link + "\"  style=\"color:green\"  target=\"_blank\">" + name + "</a>";
-	replaceText('*', name, link_wrapper, 'g');
-}
-
-function replaceText(selector, text, newText, flags) 
-{
-	var matcher = new RegExp(text, flags);
-	$(selector).each(function () 
+	$('*').each(function () 
 	{
 		var current_element = $(this);
-		var replaced_text = "";
 
 		// ignore parent nodes
 		if(current_element.children().length > 0)
@@ -140,8 +127,24 @@ function replaceText(selector, text, newText, flags)
 			return;
 		}
 
-		current_element.html(current_element.text().replace(matcher, newText));
+		var new_text = current_element.text();
+
+		for(name in wiki_links) 
+		{
+			var name_pattern = "\\b(" + name + ")\\b"
+			var name_match = new RegExp(name_pattern, 'g');
+			var link = get_pan_link(name, wiki_links[name]);
+
+			new_text = new_text.replace(name_match, link);
+		}
+
+		current_element.html(new_text);
 	});
+}
+
+function get_pan_link(name, link)
+{
+	return "<a href=\"" + link + "\"  style=\"color:green\"  target=\"_blank\">" + name + "</a>";
 }
 
 function is_invalid_tag(element)
@@ -152,7 +155,8 @@ function is_invalid_tag(element)
 			tag_name === "h2" || 
 			tag_name === "h3" || 
 			tag_name === "head" ||
-			tag_name === "title";
+			tag_name === "title" ||
+			tag_name === "a";
 }
 
 // TODO abstract this function out
