@@ -8,6 +8,7 @@ var user_page_key = "userpages";
 $( document ).ready(function() 
 {
 	validate_browser();
+	change_icon("grey");
 	get_user_pages()
 		.then(validate_page)
 		.then(start_page_processing)
