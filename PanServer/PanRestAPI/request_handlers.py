@@ -1,4 +1,5 @@
 from rest_framework.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from PanRestAPI.models import WebPage, Entity, PageEntity
 from PanRestAPI.serializers import WebPageSerializer, EntitySerializer, PageEntitySerializer
 from google.cloud import language
@@ -22,6 +23,7 @@ class WikiLinkRequestHandler :
 		self.m_wikilinks = None
 
 		self.__cleanse_data()
+		self.check_database_for_entities()
 
 	def __cleanse_data(self) :
 
@@ -53,11 +55,15 @@ class WikiLinkRequestHandler :
 	def request_wiki_links(self) :
 
 		if(self.m_wikilinks != None) :
+			print("found things")
 			return self.m_wikilinks
 
+		print("did not find things")
+		raise ValidationError()
+
 		if(self.m_webpage == None) :
-			validate_and_save()
-	
+			self.validate_and_save()
+		
 		client = language.LanguageServiceClient()
 		document = types.Document(content = self.m_webpage.Content, type = enums.Document.Type.PLAIN_TEXT)
 
@@ -71,30 +77,56 @@ class WikiLinkRequestHandler :
 			entity_name = entity.name
 			entity_link = entity.metadata.get('wikipedia_url')
 
+			print(entity_name, entity_link)
 			if(entity_link != None) :
 
 				wiki_links[entity_name] = entity_link
 
-		self.m_wiki_links = wiki_links
+		self.m_wikilinks = wiki_links
 		
 		# we can save these to the database on a separate thread, so that 
 		# the client does not have to wait for it to finish
 		save_link_process = Process(target=self.save_wiki_links_to_database)
 		save_link_process.start()
 
-		return self.m_wiki_links
+		return self.m_wikilinks
 
 	def save_wiki_links_to_database(self) :
 
-		if self.m_wiki_links == None or self.m_webpage == None :
+		if self.m_wikilinks == None or self.m_webpage == None :
 			return
 
-		for name in self.m_wiki_links :
+		for name in self.m_wikilinks :
 			
-			entity = Entity.objects.create(EntityName=name, WikiLink=self.m_wiki_links[name])
+			entity = Entity.objects.create(EntityName=name, WikiLink=self.m_wikilinks[name])
 			entity.save()
 
 			page_entity = PageEntity.objects.create(WebPageID=self.m_webpage, EntityID=entity)
 			page_entity.save()
 
+	def check_database_for_entities(self) :
 
+		web_page_url = self.m_request.data['URL']
+
+		try :
+			web_page = WebPage.objects.get(URL=web_page_url)
+			page_entites = PageEntity.objects.select_related('EntityID').filter(WebPageID=web_page.id)
+			
+			wiki_links = {}
+
+			for page_entity in page_entites :
+
+				entity_name = page_entity.EntityID.EntityName
+				entity_link = page_entity.EntityID.WikiLink
+
+				wiki_links[entity_name] = entity_link
+			
+			self.m_wikilinks = wiki_links
+
+		except ObjectDoesNotExist :
+			# this page has not been queried yet
+			return
+
+		except MultipleObjectsReturned :
+			logger.debug("Duplicate URLs found for", web_page_url)
+			return

@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 def wiki_links(request, format=None) : 
 
 	wiki_link_handler = WikiLinkRequestHandler(request)
-	wiki_link_handler.validate_and_save()
 	links = wiki_link_handler.request_wiki_links()
 	
 	return Response(links)
