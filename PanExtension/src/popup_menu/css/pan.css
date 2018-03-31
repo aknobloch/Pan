@@ -1,5 +1,9 @@
+:root {
+  --bgcolor: #eaeaea;
+}
+
 body {
-  background-color: #eaeaea;
+  background-color: var(--bgcolor);
   border-style: solid;
   border-width: 10px 2px 10px 2px;
   border-color: #5e5e5e;
@@ -16,8 +20,18 @@ body {
 }
 
 .pan-table {
-  margin: 15px;
+  /*
+  shitty hack to add a border
+  around the table with the 
+  same color as the body background.
+  Setting the margin and padding for the
+  table produced bugs with the popup
+  dynamic width calculation, causing the
+  table to fall off the page frame.
+  */
+  border: 15px solid var(--bgcolor); 
 }
+
 
 .pan-header {
   font-weight: bold;
