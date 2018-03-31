@@ -11,3 +11,11 @@
 .pan-table {
   margin: 15px;
 }
+
+.pan-header {
+  font-weight: bold;
+  border-bottom: 1px solid #aaa;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
