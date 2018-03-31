@@ -5,5 +5,9 @@ document.addEventListener("click", function(e)
     	browser.runtime.sendMessage({menuItemPressed:"addDomain"}); // received by background service
     	window.close();
 	}
+	else if(e.target.classList.contains("manage-domains"))
+	{
+		window.location.replace("./manage_domains.html");
+	}
 
 });

@@ -6,9 +6,13 @@ browser.runtime.onMessage.addListener((sentMessage, sender) =>
 	{
 		set_icon(sentMessage.changeIcon, sender.tab.id);
 	}
-	else if(sentMessage.menuItemPressed = "addDomain")
+	else if(sentMessage.menuItemPressed == "addDomain")
 	{
 		save_page();
+	}
+	else if(sentMessage.menuItemPressed == "removeDomain")
+	{
+		remove_page(sentMessage.domainRequested);
 	}
 });
 
@@ -35,6 +39,28 @@ function save_page()
 	Promise.all([current_page, current_storage])
 		.then(append_and_save_webpage)
 		.catch(on_error);
+}
+
+function remove_page(page_to_remove)
+{
+	browser.storage.local.get(user_page_key)
+		.then(function(current_storage)
+		{
+			var new_storage = current_storage.userpages;
+			var pageIndex = current_storage.userpages.indexOf(page_to_remove);
+
+			if(pageIndex < 0)
+			{
+				return;
+			}
+
+			new_storage.splice(pageIndex, 1);
+
+			browser.storage.local.set(
+			{
+				userpages: new_storage
+			});
+		});
 }
 
 function append_and_save_webpage(promise_result_array)

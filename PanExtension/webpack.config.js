@@ -26,6 +26,12 @@ module.exports = {
 		},
 		{
 			from: "./src/popup_menu/css/pan.css", to: "out/pan.css"	
+		},
+		{
+			from: "./src/popup_menu/manage_domains.html", to: "out/manage_domains.html"
+		},
+		{
+			from: "./src/popup_menu/manage_domains.js", to: "out/manage_domains.js"
 		}
 		])
 	],
