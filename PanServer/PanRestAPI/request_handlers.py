@@ -55,11 +55,7 @@ class WikiLinkRequestHandler :
 	def request_wiki_links(self) :
 
 		if(self.m_wikilinks != None) :
-			print("found things")
 			return self.m_wikilinks
-
-		print("did not find things")
-		raise ValidationError()
 
 		if(self.m_webpage == None) :
 			self.validate_and_save()
