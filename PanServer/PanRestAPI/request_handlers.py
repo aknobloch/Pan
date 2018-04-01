@@ -73,7 +73,6 @@ class WikiLinkRequestHandler :
 			entity_name = entity.name
 			entity_link = entity.metadata.get('wikipedia_url')
 
-			print(entity_name, entity_link)
 			if(entity_link != None) :
 
 				wiki_links[entity_name] = entity_link
