@@ -9,8 +9,8 @@ function show_whitelisted_domains(user_pages)
 {
 	var user_approved_pages = user_pages.userpages;
 	var domain_table = document.getElementById("domains");
-
-	if(user_approved_pages.length == 0)
+	
+	if( typeof user_approved_pages == 'undefined' || user_approved_pages.length == 0)
 	{
 		remove_table(domain_table);
 		return;
