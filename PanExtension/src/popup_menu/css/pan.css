@@ -29,7 +29,9 @@ body {
   dynamic width calculation, causing the
   table to fall off the page frame.
   */
-  border: 15px solid var(--bgcolor); 
+  border-width: 20px;
+  border-style: solid;
+  border-color: var(--bgcolor);
 }
 
 
