@@ -60,6 +60,7 @@ class WikiLinkRequestHandler :
 		if(self.m_webpage == None) :
 			self.validate_and_save()
 		
+		logger.debug("Querying the GCS for " + self.m_webpage.URL)
 		client = language.LanguageServiceClient()
 		document = types.Document(content = self.m_webpage.Content, type = enums.Document.Type.PLAIN_TEXT)
 
@@ -104,9 +105,13 @@ class WikiLinkRequestHandler :
 		web_page_url = self.m_request.data['URL']
 
 		try :
-			web_page = WebPage.objects.get(URL=web_page_url)
-			page_entites = PageEntity.objects.select_related('EntityID').filter(WebPageID=web_page.id)
+			self.m_webpage = WebPage.objects.get(URL=web_page_url)
+			page_entites = PageEntity.objects.select_related('EntityID').filter(WebPageID=self.m_webpage.id)
 			
+
+			if len(page_entites) == 0 :
+				return
+
 			wiki_links = {}
 
 			for page_entity in page_entites :

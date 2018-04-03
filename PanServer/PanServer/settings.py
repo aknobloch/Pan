@@ -25,7 +25,7 @@ SECRET_KEY = 'rj-0=t5=(4=07q9%nqs+i_x+uijt+7@z^8!0pi^lkyi!v=r^4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aarondevelops.ddns.net']
 
 
 # Application definition
