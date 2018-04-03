@@ -1,6 +1,6 @@
 var $ = require("jquery");
 var extractor = require("unfluff");
-var server_address = "http://127.0.0.1:8000/";
+var server_address = "http://aarondevelops.ddns.net:8000/";
 var http_request = new XMLHttpRequest();
 var request_timeout = 1000 * 10;
 var user_page_key = "userpages";
@@ -92,7 +92,6 @@ function handle_server_response()
 	if(http_request.status != 200)
 	{
 		// TODO red icons with message to user
-		console.log("Pan server response: " + http_request.status);
 		change_icon("grey");
 		return;
 	}
@@ -115,19 +114,18 @@ function insert_links(wiki_links)
 			return;
 		}
 
-		// ignore elements with minimal text - these are likely not
-		// content. this approach is used via the unfluff lib as well
-		if(current_element.text().length < 50)
-		{
-			return;
-		}
-
 		if(is_invalid_tag(current_element))
 		{
 			return;
 		}
 
-		var new_text = current_element.text();
+		var element_text = current_element.text();
+		// ignore non-paragraph elements with minimal text - these are likely not
+		// content. a similar approach is used via the unfluff lib as well
+		if(current_element.prop("tagName").toLowerCase() !== "p" && element_text.length < 50)
+		{
+			return;
+		}
 
 		for(name in wiki_links) 
 		{
@@ -135,10 +133,10 @@ function insert_links(wiki_links)
 			var name_match = new RegExp(name_pattern, 'g');
 			var link = get_pan_link(name, wiki_links[name]);
 
-			new_text = new_text.replace(name_match, link);
+			element_text = element_text.replace(name_match, link);
 		}
 
-		current_element.html(new_text);
+		current_element.html(element_text);
 	});
 }
 
@@ -154,9 +152,14 @@ function is_invalid_tag(element)
 	return  tag_name === "h1" || 
 			tag_name === "h2" || 
 			tag_name === "h3" || 
+			tag_name === "h4" ||
+			tag_name === "h5" ||
 			tag_name === "head" ||
 			tag_name === "title" ||
-			tag_name === "a";
+			tag_name === "a" ||
+			tag_name === "style" ||
+			tag_name === "script" ||
+			tag_name === "noscript";
 }
 
 // TODO abstract this function out
