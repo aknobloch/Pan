@@ -1,5 +1,5 @@
 # What is Pan?
-In the age of information and big data, it has become nearly impossible for any conscientious consumer to keep their facts straight. Whether reading news articles, sports, tabloids or research papers, the amount of information presented to people on a daily basis is utterly overwhelming.
+In the age of information and big data, it has become nearly impossible for any conscientious consumer to keep their facts straight. Whether reading news, sports, tabloids or research papers, the amount of information presented to people on a daily basis is utterly overwhelming.
 
 This is where Pan comes in. Pan is a browser extension aimed at providing easy access to subjects and sources. 
 
