@@ -26,7 +26,8 @@
 	"background": {
 		"scripts": [
 			"out/bs_manage_domains.js",
-			"out/bs_on_install.js"]
+			"out/bs_on_install.js",
+			"out/bs_change_icon.js"]
 	},
 
 	"browser_action" : {
