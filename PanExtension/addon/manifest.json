@@ -24,7 +24,9 @@
 	],
 
 	"background": {
-		"scripts": ["out/background_service.js"]
+		"scripts": [
+			"out/bs_manage_domains.js",
+			"out/bs_on_install.js"]
 	},
 
 	"browser_action" : {

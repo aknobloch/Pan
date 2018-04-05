@@ -82,7 +82,7 @@ function remove_page(row, domain)
 {
 	page_removal_request = 
 	{
-		menuItemPressed:"removeDomain",
+		changeDomains:"removeDomain",
 		domainRequested:domain
 	}
 

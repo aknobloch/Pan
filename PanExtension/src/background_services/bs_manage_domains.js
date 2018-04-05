@@ -1,18 +1,21 @@
 var user_page_key = "userpages";
 
+
 browser.runtime.onMessage.addListener((sentMessage, sender) =>
 {
-	if(sentMessage.changeIcon)
+	if( ! sentMessage.changeDomains )
 	{
-		set_icon(sentMessage.changeIcon, sender.tab.id);
+		return;
 	}
-	else if(sentMessage.menuItemPressed == "addDomain")
+
+	switch(sentMessage.changeDomains)
 	{
-		save_page();
-	}
-	else if(sentMessage.menuItemPressed == "removeDomain")
-	{
-		remove_page(sentMessage.domainRequested);
+		case "addDomain" :
+			save_page();
+			break;
+		case "removeDomain" :
+			remove_page(sentMessage.domainRequested);
+			break;
 	}
 });
 
