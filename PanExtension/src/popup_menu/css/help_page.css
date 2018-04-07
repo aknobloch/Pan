@@ -1,0 +1,91 @@
+:root {
+  --bgcolor: #eaeaea;
+}
+
+body {
+    background-color: var(--bgcolor);
+    border-style: solid;
+    border-width: 10px 3px 10px 3px;
+    border-color: #5e5e5e;
+    padding: 20px;
+}
+
+p {
+    padding-top: 10px;
+    width: 290px;
+}
+
+.accordion {
+    background-color: #77B17C;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 13px;
+    width: 350px;
+
+    border: solid;
+    border-color: var(--bgcolor);
+    border-width: 1px;
+
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+/* Removes the "dotted line" border on focus. */
+button::-moz-focus-inner {
+    border: 0;
+}
+
+.accordion:hover {
+    background-color: #91c695;
+}
+
+.accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.accordion-panel {
+    padding: 0 18px;
+    background-color: #ffffff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.1s ease-out;
+}
+
+.pan-btn {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+/* Overriding Bootstrap's default button colors */
+.btn {
+    border: 0 none;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #77B17C;
+    color: #ffffff;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #91c695;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #548258 !important;
+    box-shadow: none;
+}
