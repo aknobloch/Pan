@@ -50,7 +50,7 @@ function remove_table(table)
 	body.removeChild(table);
 
 	var no_domains = document.createElement("p");
-	no_domains.appendChild(document.createTextNode("No added domains."));
+	no_domains.appendChild(document.createTextNode("No added sites."));
 	no_domains.style.margin = "20px";
 
 	body.insertBefore(no_domains, body.firstChild);
