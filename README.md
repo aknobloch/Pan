@@ -20,7 +20,7 @@ Currently, Pan is unavailable to the public due to financial limitations. Howeve
 # FAQ
 
 ### Why Wikipedia?
-This is one of the most frequent questions I receive. The answer, firstly, is technical limitations. Finding alternative sources for information is a technical mountain I simply do not have the time to climb, to be blunt. Secondly, Wikipedia is a fairly neutral source of information. While it is not infallible, most users are aware of it's limitations, whereas other resources can be less transparent about their legitimacy. 
+This is one of the most frequent questions I receive. The answer, firstly, is technical limitations. To be blunt, finding alternative sources for information is a technical mountain I simply do not have the time to climb. Secondly, Wikipedia is a fairly neutral source of information. While it is not infallible, most users are aware of its limitations, whereas other resources can be less transparent about their legitimacy. 
 
 ### Does Pan collect my data?
 Pan takes data privacy very seriously. In order to function, Pan must observe your web browsing and send it to our server for analysis. However, this process is entirely anonymous. **The information collected by our server is simply the article URL and the content of the page. This information is not tied back to you, as a user, in any form, nor is this data shared with anyone. Period.**
