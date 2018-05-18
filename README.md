@@ -1,7 +1,5 @@
 # What is Pan?
-In college and beyond, many people suffer from information overload. Through countless courses, assignments and papers, it becomes easy to allow small details to slip our minds. 
-
-This is where Pan comes in. Pan is your personal research assistant, aimed at providing easy access to subjects and sources.
+In college and beyond, many people suffer from information overload. Through countless courses, assignments and papers, it becomes easy to allow small details to slip our minds. This is where Pan comes in. Pan is your personal research assistant, aimed at providing easy access to subjects and sources.
 
 ### What can Pan do?
 In short, Pan will do the research for you. As you surf the internet, Pan will analyze the pages you allow it to, using state-of-the-art machine learning. In doing so, it will identify the subjects of what you are reading and find any corresponding Wikipedia pages for those subjects. After it has gathered this information, Pan will replace mentions of those subjects with their relevant links. This allows you to easily refresh your memory on old subjects, without getting too distracted trying to track down information.
